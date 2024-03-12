@@ -1,2 +1,2 @@
 # LoginApp
-A Login Application built in Java.
+A login application built in Java.
