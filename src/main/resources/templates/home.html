@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        /* Body Customization */
+        body {
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        /* Home Page Customization */
+        .homePage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Heading customization */
+        h1 {
+            text-align: center;
+            margin: 0 auto; /* Center the heading */
+            font-size: 50px;
+        }
+
+        /* Navigation bar customization */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            background-color: #333;
+            z-index: 1000; /* Make sure it's above other elements */
+            box-sizing: border-box;
+        }
+
+         /* Navigation bar links area customization */
+        .navbarLinksArea {
+            display:flex;
+            gap: 20px;
+        }
+
+         /* Navigation bar links customization */
+        .navbar a {
+            text-decoration: none;
+            color: #f2f2f2;
+            font-weight: bold;
+            padding: 16px;
+        }
+
+        /* Styles for classes with 'selected' */
+        .selected {
+            background-color: black;
+        }
+
+        /* User Details Area Customization */
+        .userDetails {
+            margin-top: 20px;
+            box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <!-- Home page area -->
+    <div class = "homePage">
+
+        <!-- Navigation bar -->
+        <div class = "navbar">
+
+            <!-- Navigation bar links area -->
+            <div class = "navbarLinksArea">
+                <!-- Website name -->
+                <a href = "/home" style = "font-size: 18px">Login App</a>
+
+                <!-- Language change buttons -->
+                <a href="/home?lang=en_US" th:text="#{lang.en}"
+                   th:class="${#locale.language == 'en' ? 'selected' : ''}">x</a>
+                <a href="/home?lang=zh_CN" th:text="#{lang.zh}"
+                   th:class="${#locale.language == 'zh' ? 'selected' : ''}">x</a>
+            </div>
+
+            <!-- Logout button -->
+            <a href = "/logout" th:text = "#{logout}"></a>
+        </div>
+
+        <!-- Heading message -->
+        <h1 th:text = "#{welcomeBack}"></h1>
+
+        <!-- User details -->
+        <div class = "userDetails">
+
+            <!-- Name -->
+            <span th:text = "#{name}" style = "font-weight: bold"></span>: <span th:text = "${name}"></span><br/><br/>
+
+            <!-- Username -->
+            <span th:text = "#{username}" style = "font-weight: bold"></span>: <span th:text = "${username}"></span><br/><br/>
+
+            <!-- Role -->
+            <span th:text = "#{role}" style = "font-weight: bold"></span>:
+            <span th:if="${role == T(com.LoginApplication.LoginApplication.Entity.Role).ROLE_MANAGER}"
+                  th:text = "#{manager}">
+            </span>
+            <span th:if="${role == T(com.LoginApplication.LoginApplication.Entity.Role).ROLE_USER}"
+                  th:text = "#{user}">
+            </span>
+            <br/><br/>
+
+            <!-- Display link only to be seen by and restricted to managers -->
+            <div th:if = "${role == T(com.LoginApplication.LoginApplication.Entity.Role).ROLE_MANAGER}">
+                <span th:text = "#{link}" style = "font-weight: bold"></span>:
+                <a href = "/home/restricted" th:text = "#{restricted}"></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

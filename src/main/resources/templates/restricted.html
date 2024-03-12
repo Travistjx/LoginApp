@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Restricted Page</title>
+    <style>
+        /* Body Customization */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+  <p th:text = "#{restrictedLines}"></p>
+</body>
+</html>
